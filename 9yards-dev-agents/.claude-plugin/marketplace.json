@@ -1,0 +1,21 @@
+{
+    "name": "9yards-marketplace",
+    "owner": {
+        "name": "9Yards",
+        "email": "info@9yards.nl"
+    },
+    "metadata": {
+        "description": "9Yards development agent collections",
+        "version": "1.0.0"
+    },
+    "plugins": [
+        {
+            "name": "9yards-dev-agents",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/9yards/9yards-dev-agents.git"
+            }
+        }
+    ]
+}

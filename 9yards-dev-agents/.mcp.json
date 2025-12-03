@@ -1,0 +1,68 @@
+{
+    "mcpServers": {
+        "memory": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-memory"
+            ],
+            "env": {
+                "MEMORY_FILE_PATH": "${CLAUDE_PROJECT_DIR}/.claude/memory-storage.json"
+            }
+        },
+        "filesystem": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-filesystem",
+                "${CLAUDE_PROJECT_DIR}"
+            ]
+        },
+        "git": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@cyanheads/git-mcp-server"
+            ]
+        },
+        "fetch": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@tokenizin/mcp-npx-fetch"
+            ]
+        },
+        "playwright": {
+            "command": "npx",
+            "args": [
+                "@playwright/mcp@latest",
+                "--viewport-size=${PLAYWRIGHT_VIEWPORT}",
+                "--caps=vision,pdf",
+                "--headless",
+                "--isolated",
+                "--no-sandbox",
+                "--browser=${PLAYWRIGHT_BROWSER}",
+                "--output-dir=${CLAUDE_PROJECT_DIR}/.claude/playwright",
+                "--ignore-https-errors",
+                "--save-session",
+                "--user-agent=${PLAYWRIGHT_USER_AGENT}"
+            ]
+        },
+        "mysql-database": {
+            "command": "npx",
+            "args": [
+                "@bytebase/dbhub",
+                "--transport=stdio",
+                "--dsn=${MYSQL_DSN}"
+            ]
+        },
+        "postgres-database": {
+            "command": "npx",
+            "args": [
+                "@bytebase/dbhub",
+                "--transport=stdio",
+                "--dsn=${POSTGRES_DSN}"
+            ]
+        }
+    }
+}
