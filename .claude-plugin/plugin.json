@@ -23,10 +23,10 @@
     "postgresql"
   ],
   "agents": [
-    "agents/python/*.md",
-    "agents/magento/*.md",
-    "agents/php/*.md",
-    "agents/javascript/*.md",
-    "agents/sysadmin/*.md"
+    "./agents/python/*.md",
+    "./agents/magento/*.md",
+    "./agents/php/*.md",
+    "./agents/javascript/*.md",
+    "./agents/sysadmin/*.md"
   ]
 }
