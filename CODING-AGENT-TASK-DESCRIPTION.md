@@ -65,8 +65,8 @@ Create the following directory structure:
     "email": "info@9yards.nl",
     "url": "https://9yards.nl"
   },
-  "homepage": "https://github.com/9yards/9yards-dev-agents",
-  "repository": "https://github.com/9yards/9yards-dev-agents",
+  "homepage": "https://github.com/jurgenmahn/9yards-dev-agents",
+  "repository": "https://github.com/jurgenmahn/9yards-dev-agents",
   "license": "MIT",
   "keywords": [
     "development",
@@ -109,7 +109,7 @@ Create the following directory structure:
       "version": "1.0.0",
       "source": {
         "type": "git",
-        "url": "https://github.com/9yards/9yards-dev-agents.git"
+        "url": "https://github.com/jurgenmahn/9yards-dev-agents.git"
       }
     }
   ]
@@ -628,7 +628,7 @@ Then add corresponding DSNs to `.claude/settings.local.json`.
 
 For issues with:
 
-- **Plugin/Agents:** Open issue at https://github.com/9yards/9yards-dev-agents
+- **Plugin/Agents:** Open issue at https://github.com/jurgenmahn/9yards-dev-agents
 - **MCP Protocol:** See https://modelcontextprotocol.io
 - **Specific MCP Servers:** Check npm package documentation
 
@@ -904,7 +904,7 @@ MIT License - Free for commercial and personal use
 
 ## Support
 
-- **Issues:** https://github.com/9yards/9yards-dev-agents/issues
+- **Issues:** https://github.com/jurgenmahn/9yards-dev-agents/issues
 - **Email:** info@9yards.nl
 - **Website:** https://9yards.nl
 

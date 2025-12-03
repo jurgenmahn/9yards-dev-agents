@@ -20,7 +20,7 @@ Each discipline has a dedicated team of agents (Planner/Architect, Developer/Bac
 
 ```bash
 # Clone into your plugins directory (or install via marketplace if available)
-git clone https://github.com/9yards/9yards-dev-agents.git
+git clone https://github.com/jurgenmahn/9yards-dev-agents.git
 ```
 
 ### 2. Configure MCP Servers
