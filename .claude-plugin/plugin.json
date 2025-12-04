@@ -36,14 +36,5 @@
     "./agents/php/*.md",
     "./agents/javascript/*.md",
     "./agents/sysadmin/*.md"
-  ],
-  "mcpServers": [
-    "./mcp/memory.json",
-    "./mcp/filesystem.json",
-    "./mcp/git.json",
-    "./mcp/fetch.json",
-    "./mcp/playwright.json",
-    "./mcp/mysql-database.json",
-    "./mcp/postgres-database.json"
   ]
 }
