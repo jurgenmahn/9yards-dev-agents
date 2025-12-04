@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "mysql-database": {
+      "command": "npx",
+      "args": [
+        "@bytebase/dbhub",
+        "--transport=stdio",
+        "--dsn=${MYSQL_DSN}"
+      ]
+    }
+  }
+}

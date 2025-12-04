@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "postgres-database": {
+      "command": "npx",
+      "args": [
+        "@bytebase/dbhub",
+        "--transport=stdio",
+        "--dsn=${POSTGRES_DSN}"
+      ]
+    }
+  }
+}

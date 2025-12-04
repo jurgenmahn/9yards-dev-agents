@@ -78,8 +78,11 @@ Ask Claude to use a specific agent set for your task.
 - Node.js 18+ (for MCP servers)
 - Git
 - Relevant runtime environments (Python, PHP, etc.) for the code you generate
+- uv & uvw 
+```bash
+pip install uv
+```
 - Playwright requirements:
-
 ```bash
 npm install -g playwright
 npm install -g @playwright/mcp@0.0.33
