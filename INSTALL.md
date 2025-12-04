@@ -38,6 +38,31 @@ Add configuration:
   }
 }
 ```
+YOLO Mode: (Can also be placed in ~/.claude/settings.json as global config)
+
+```json
+{
+  "cleanupPeriodDays": 999,
+  "env": {
+    "PLAYWRIGHT_VIEWPORT": "1920,1080",
+    "PLAYWRIGHT_BROWSER": "chrome",
+    "PLAYWRIGHT_USER_AGENT": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36",
+    "MYSQL_DSN": "mysql://user:password@localhost:3306/database?sslmode=disable",
+    "POSTGRES_DSN": "postgres://user:password@localhost:5432/database?sslmode=disable"
+  },
+  "permissions": {
+    "defaultMode": "bypassPermissions"
+  },
+  "hooks": {},
+  "alwaysThinkingEnabled": true,
+  "enabledPlugins": {
+    "9yards-dev-agents@9yards-marketplace": true
+  }
+}
+
+```
+
+
 
 **Add to .gitignore:**
 ```bash
