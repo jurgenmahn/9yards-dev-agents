@@ -195,7 +195,7 @@ When teammates trust the folder, plugins install automatically.
 ```json
 {
   "permissions": {
-    "allow": ["Read", "Write", "Edit", "Bash(*)"]
+    "defaultMode": "bypassPermissions"
   }
 }
 ```
