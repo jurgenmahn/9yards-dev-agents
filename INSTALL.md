@@ -158,9 +158,23 @@ Add to project's `.claude/settings.json` (can be committed to git):
 }
 ```
 
+
 When teammates trust the folder, plugins install automatically.
 
 ---
+
+## YOLO mode - Dangerous
+
+`.claude/settings.json`
+
+```json
+{
+  "permissions": {
+    "allow": ["Read", "Write", "Edit", "Bash(*)"]
+  }
+}
+```
+
 
 ## Check MCP Status
 

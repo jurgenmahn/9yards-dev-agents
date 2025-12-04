@@ -45,6 +45,8 @@
                 "--output-dir=${CLAUDE_PROJECT_DIR}/.claude/playwright",
                 "--ignore-https-errors",
                 "--save-session",
+                "--use-fake-device-for-media-stream",
+                "--use-fake-ui-for-media-stream",
                 "--user-agent=${PLAYWRIGHT_USER_AGENT}"
             ]
         },
