@@ -1,6 +1,6 @@
 {
   "name": "9yards-dev-agents",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Development agent sets for Python, Magento, PHP, JavaScript, and SysAdmin workflows with integrated testing, database management, and git automation",
   "author": {
     "name": "9Yards",
@@ -22,6 +22,14 @@
     "mysql",
     "postgresql"
   ],
+  "commands": [
+    "./commands/python.md",
+    "./commands/magento.md",
+    "./commands/php.md",
+    "./commands/javascript.md",
+    "./commands/js.md",
+    "./commands/sysadmin.md"
+  ],  
   "agents": [
     "./agents/python/*.md",
     "./agents/magento/*.md",
