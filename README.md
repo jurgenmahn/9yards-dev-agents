@@ -86,3 +86,33 @@ npm install -g @playwright/mcp@0.0.33
 npx playwright install chromium firefox webkit
 npx playwright install-deps
 ```
+
+## Quick Start with Slash Commands
+
+Load agent sets instantly:
+```bash
+/python      # Load Python agents
+/magento     # Load Magento agents
+/php         # Load PHP agents
+/js          # Load JavaScript/Node.js agents
+/sysadmin    # Load SysAdmin agents
+```
+
+All commands have autocomplete - just type `/` and start typing.
+
+### Example Workflow
+```bash
+$ claude
+> /magento
+# Magento agents loaded
+
+> Create a custom checkout step for express shipping
+
+# Claude uses:
+# - Architect to plan the module
+# - Backend to implement PHP
+# - Frontend to create templates
+# - Database for schema
+# - Validator to test in browser
+# - Git to commit when done
+```
