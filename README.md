@@ -222,7 +222,7 @@ python scripts/index-gitlab-repos.py       # Only changed files
 Edit `.env`:
 ```bash
 SLACK_BOT_TOKEN=xoxb-...
-SLACK_CHANNELS=dev,magento,general
+SLACK_CHANNELS=dev,magento,general  # Leave empty to index all accessible channels
 SLACK_DAYS_BACK=90
 
 GITLAB_PERSONAL_ACCESS_TOKEN=glpat-...

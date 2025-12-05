@@ -27,7 +27,8 @@ from scripts.indexer_state import IndexerState
 
 # Configuration from environment
 SLACK_TOKEN = os.getenv('SLACK_BOT_TOKEN')
-CHANNELS = os.getenv('SLACK_CHANNELS', 'dev,magento,general').split(',')
+CHANNELS_ENV = os.getenv('SLACK_CHANNELS', '')
+CHANNELS = [c.strip() for c in CHANNELS_ENV.split(',') if c.strip()] if CHANNELS_ENV else []
 DAYS_BACK = int(os.getenv('SLACK_DAYS_BACK', '90'))
 CHROMA_PATH = os.path.expanduser(os.getenv('CHROMA_DATA_DIR', '~/claude-code-data/chroma'))
 
@@ -36,6 +37,23 @@ if not SLACK_TOKEN:
     print("   Set it in .env file or export SLACK_BOT_TOKEN=xoxb-...")
     sys.exit(1)
 
+def get_all_channels():
+    """Get all accessible channels"""
+    resp = requests.get(
+        'https://slack.com/api/conversations.list',
+        headers={'Authorization': f'Bearer {SLACK_TOKEN}'},
+        params={'types': 'public_channel,private_channel', 'limit': 1000}
+    )
+
+    if not resp.ok or not resp.json().get('ok'):
+        print(f"❌ Failed to list channels: {resp.json().get('error')}")
+        return []
+
+    channels = resp.json()['channels']
+    # Filter out archived channels and bot-only channels
+    accessible = [ch['name'] for ch in channels if not ch.get('is_archived', False)]
+    return accessible
+
 def get_channel_id(channel_name):
     """Get channel ID from name"""
     resp = requests.get(
@@ -43,11 +61,11 @@ def get_channel_id(channel_name):
         headers={'Authorization': f'Bearer {SLACK_TOKEN}'},
         params={'types': 'public_channel,private_channel', 'limit': 1000}
     )
-    
+
     if not resp.ok or not resp.json().get('ok'):
         print(f"❌ Failed to list channels: {resp.json().get('error')}")
         return None
-    
+
     channels = resp.json()['channels']
     for ch in channels:
         if ch['name'] == channel_name:
@@ -196,15 +214,27 @@ def main():
     else:
         mode = "incremental update"
 
+    # Determine which channels to index
+    if not CHANNELS:
+        print("📡 SLACK_CHANNELS not set - discovering all accessible channels...")
+        channels_to_index = get_all_channels()
+        if not channels_to_index:
+            print("❌ No accessible channels found")
+            sys.exit(1)
+        channel_source = "all accessible"
+    else:
+        channels_to_index = CHANNELS
+        channel_source = "configured"
+
     print("=" * 60)
     print("🔍 Slack Knowledge Indexing")
     print("=" * 60)
     print(f"📅 Mode: {mode}")
     print(f"📂 Chroma path: {CHROMA_PATH}")
-    print(f"📝 Channels: {', '.join(CHANNELS)}")
+    print(f"📝 Channels ({channel_source}): {', '.join(channels_to_index)}")
     print()
 
-    for channel_name in CHANNELS:
+    for channel_name in channels_to_index:
         print(f"📡 Processing #{channel_name}...")
 
         channel_id = get_channel_id(channel_name)

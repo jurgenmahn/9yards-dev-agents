@@ -39,25 +39,46 @@ python scripts/index-slack-knowledge.py --full-reindex
 ## Configuration
 
 Edit `.env` to configure:
-- `SLACK_BOT_TOKEN` - Your Slack bot token
-- `SLACK_CHANNELS` - Comma-separated list (default: dev,magento,general)
+- `SLACK_BOT_TOKEN` - Your Slack bot token (required)
+- `SLACK_CHANNELS` - Comma-separated list (e.g., `dev,magento,general`). **Leave empty to index all accessible channels**
 - `SLACK_DAYS_BACK` - How many days to index on first run (default: 90)
 - `CHROMA_DATA_DIR` - Where to store Chroma data
 
+**Example configurations:**
+```bash
+# Index specific channels
+SLACK_CHANNELS=dev,magento,general
+
+# Index all accessible channels (leave empty or unset)
+SLACK_CHANNELS=
+```
+
 ## Expected Output
 
-**Incremental Mode:**
+**Incremental Mode (specific channels):**
 ```
 🔍 Slack Knowledge Indexing
 📅 Mode: incremental update
 📂 Chroma path: ~/claude-code-data/chroma
-📝 Channels: dev, magento, general
+📝 Channels (configured): dev, magento, general
 
 📡 Processing #dev...
   📥 Fetching new messages from #dev (since 2025-12-04 10:30)... 12 messages
   ✅ Indexed 8 messages, skipped 4
 
 ✅ Slack indexing complete!
+```
+
+**Incremental Mode (all channels):**
+```
+📡 SLACK_CHANNELS not set - discovering all accessible channels...
+🔍 Slack Knowledge Indexing
+📅 Mode: incremental update
+📂 Chroma path: ~/claude-code-data/chroma
+📝 Channels (all accessible): dev, magento, general, design, support, sales
+
+📡 Processing #dev...
+...
 ```
 
 **Full Reindex Mode:**
