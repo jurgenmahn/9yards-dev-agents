@@ -370,6 +370,23 @@ Team members: Pull repo → Trust folder in Claude Code → Create their own `se
 └── install.sh           # Ubuntu 24+ setup
 ```
 
+## Get slack tokens
+Lookup SLACK_MCP_XOXC_TOKEN
+Open your browser's Developer Console.
+In Firefox, under Tools -> Browser Tools -> Web Developer tools in the menu bar
+In Chrome, click the "three dots" button to the right of the URL Bar, then select More Tools -> Developer Tools
+Switch to the console tab.
+Type "allow pasting" and press ENTER.
+Paste the following snippet and press ENTER to execute: JSON.parse(localStorage.localConfig_v2).teams[document.location.pathname.match(/^\/client\/([A-Z0-9]+)/)[1]].token
+Token value is printed right after the executed command (it starts with xoxc-), save it somewhere for now.
+
+Lookup SLACK_MCP_XOXD_TOKEN
+Switch to "Application" tab and select "Cookies" in the left navigation pane.
+Find the cookie with the name d. That's right, just the letter d.
+Double-click the Value of this cookie.
+Press Ctrl+C or Cmd+C to copy it's value to clipboard.
+Save it for later.
+
 ## License
 
 MIT
