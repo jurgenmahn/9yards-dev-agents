@@ -6,12 +6,12 @@
     },
     "metadata": {
         "description": "9Yards development agent collections",
-        "version": "1.2.0"
+        "version": "1.3.0"
     },
     "plugins": [
         {
             "name": "9yards-dev-agents",
-            "version": "1.2.0",
+            "version": "1.3.0",
             "source": {
                 "source": "github",
                 "repo": "jurgenmahn/9yards-dev-agents"
