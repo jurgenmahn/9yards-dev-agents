@@ -1,9 +1,9 @@
 ---
-description: Analyze requirements and create implementation plan for Python scripts/tools
-capabilities: ["planning", "architecture", "requirements-analysis", "python"]
+description: Design Python application structure and analyze requirements
+capabilities: ["architecture", "planning", "requirements-analysis", "python"]
 ---
 
-# Python Planner Agent
+# Python Architect Agent
 
 Break down the task, identify dependencies, suggest project structure. Focus on maintainability and reusability for internal tools.
 
