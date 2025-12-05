@@ -16,28 +16,3 @@ You now have access to:
 - **Git**: Commit infrastructure changes
 
 Ready for system administration tasks.
-```
-
-## Update Plugin Structure
-
-Your plugin should look like:
-```
-9yards-dev-agents/
-├── .claude-plugin/
-│   ├── plugin.json
-│   └── marketplace.json
-├── commands/              # ADD THIS
-│   ├── python.md
-│   ├── magento.md
-│   ├── php.md
-│   ├── javascript.md
-│   ├── js.md             # Alias
-│   └── sysadmin.md
-├── agents/
-│   ├── python/
-│   ├── magento/
-│   ├── php/
-│   ├── javascript/
-│   └── sysadmin/
-├── .mcp.json
-└── README.md
