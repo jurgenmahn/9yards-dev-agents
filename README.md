@@ -69,20 +69,22 @@ cd 9yards-dev-agents
 cp .env.example .env
 nano .env  # Add your tokens
 
-# Index knowledge
+# Index knowledge (first run - full reindex)
 source .venv/bin/activate
-python scripts/index-slack-knowledge.py
-python scripts/index-gitlab-repos.py
+python scripts/index-slack-knowledge.py --full-reindex
+python scripts/index-gitlab-repos.py --full-reindex
 
-# Setup automated indexing
+# Setup automated indexing (runs incrementally)
 ./scripts/setup-cron.sh
 ```
 
 Or use slash commands:
 ```bash
-/index-slack    # Index Slack messages
-/index-gitlab   # Index GitLab repos
+/index-slack    # Index Slack messages (incremental)
+/index-gitlab   # Index GitLab repos (incremental)
 ```
+
+**Note**: Indexing is incremental by default - only new/changed content is indexed, making subsequent runs very fast.
 
 ## Usage
 
@@ -189,6 +191,31 @@ JSON.parse(localStorage.localConfig_v2).teams[document.location.pathname.match(/
 - Commit messages (meaningful ones, last 500)
 - Merge request descriptions (last 100)
 - Excludes: vendor/, node_modules/, very large files
+
+### Incremental Indexing
+
+**Default Behavior** (fast, incremental updates):
+- Only indexes new/changed content since last run
+- Tracks state in `scripts/.indexer-state.json`
+- Removes deleted files from knowledge base
+- 10-1000x faster than full reindex
+
+**First Run**:
+```bash
+python scripts/index-slack-knowledge.py --full-reindex
+python scripts/index-gitlab-repos.py --full-reindex
+```
+
+**Subsequent Runs** (automatic or manual):
+```bash
+python scripts/index-slack-knowledge.py    # Only new messages
+python scripts/index-gitlab-repos.py       # Only changed files
+```
+
+**When to Full Reindex**:
+- After git force-push or history rewrite
+- If state file becomes corrupted
+- When switching to new Chroma database
 
 ### Configuration
 

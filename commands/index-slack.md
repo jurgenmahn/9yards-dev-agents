@@ -4,10 +4,13 @@ description: Index Slack messages into knowledge base
 
 Run the Slack knowledge indexing script to update the Chroma database with recent team discussions.
 
+**By default, only new messages since the last run are indexed (incremental mode).**
+
 ## What This Does
 
-- Fetches messages from configured Slack channels (last 90 days by default)
+- Fetches messages from configured Slack channels
 - Indexes them into Chroma MCP for semantic search
+- Tracks progress to enable fast incremental updates
 - Allows agents to query historical team discussions
 - Helps find past solutions and decisions
 
@@ -19,9 +22,18 @@ Run the Slack knowledge indexing script to update the Chroma database with recen
 
 ## Usage
 
+### Incremental Update (Default)
+Only indexes new messages since last run:
 ```bash
 source .venv/bin/activate
 python scripts/index-slack-knowledge.py
+```
+
+### Full Reindex
+Force complete reindexing from scratch:
+```bash
+source .venv/bin/activate
+python scripts/index-slack-knowledge.py --full-reindex
 ```
 
 ## Configuration
@@ -29,32 +41,49 @@ python scripts/index-slack-knowledge.py
 Edit `.env` to configure:
 - `SLACK_BOT_TOKEN` - Your Slack bot token
 - `SLACK_CHANNELS` - Comma-separated list (default: dev,magento,general)
-- `SLACK_DAYS_BACK` - How many days to index (default: 90)
+- `SLACK_DAYS_BACK` - How many days to index on first run (default: 90)
 - `CHROMA_DATA_DIR` - Where to store Chroma data
 
 ## Expected Output
 
+**Incremental Mode:**
 ```
 🔍 Slack Knowledge Indexing
-📅 Indexing last 90 days
+📅 Mode: incremental update
 📂 Chroma path: ~/claude-code-data/chroma
 📝 Channels: dev, magento, general
 
 📡 Processing #dev...
-  📥 Fetching messages from #dev... 245 messages
-  ✅ Indexed 178 messages, skipped 67
+  📥 Fetching new messages from #dev (since 2025-12-04 10:30)... 12 messages
+  ✅ Indexed 8 messages, skipped 4
 
 ✅ Slack indexing complete!
 ```
+
+**Full Reindex Mode:**
+```
+🔄 Full reindex requested - resetting state...
+📅 Mode: last 90 days (FULL)
+...
+```
+
+## How Incremental Indexing Works
+
+- **State tracking**: Last indexed message timestamp stored in `scripts/.indexer-state.json`
+- **First run**: Indexes last 90 days (or SLACK_DAYS_BACK value)
+- **Subsequent runs**: Only fetches messages newer than last indexed timestamp
+- **Performance**: Incremental runs are 10-100x faster than full reindex
 
 ## Troubleshooting
 
 - **Channel not found**: Ensure bot has access to the channel
 - **Authentication failed**: Check SLACK_BOT_TOKEN is correct
 - **Import error**: Run `pip install chromadb requests`
+- **State file corrupted**: Delete `scripts/.indexer-state.json` and run with `--full-reindex`
 
 ## When to Run
 
-- Initial setup: After installing the plugin
-- Regular updates: Automatically via cron (nightly at 2 AM)
-- Manual refresh: When you need latest discussions indexed
+- **Initial setup**: Run with `--full-reindex` after installing the plugin
+- **Regular updates**: Run daily (incremental mode is fast)
+- **After state issues**: Run with `--full-reindex` if state is out of sync
+- **Manual refresh**: Run incrementally when you need latest context

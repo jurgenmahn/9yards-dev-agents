@@ -4,12 +4,15 @@ description: Index GitLab repositories into knowledge base
 
 Run the GitLab indexing script to update the Chroma database with code, commits, and merge requests.
 
+**By default, only changed files since the last run are indexed (incremental mode).**
+
 ## What This Does
 
 - Clones/pulls configured GitLab repositories
 - Indexes code files (PHP, JS, Vue, Python, etc.)
-- Indexes meaningful commit messages
-- Indexes merge request descriptions
+- Tracks changes to index only modified files
+- Removes deleted files from Chroma
+- Indexes commits and MRs (on first run or full reindex)
 - Allows agents to find similar implementations and patterns
 
 ## Requirements
@@ -21,9 +24,18 @@ Run the GitLab indexing script to update the Chroma database with code, commits,
 
 ## Usage
 
+### Incremental Update (Default)
+Only indexes changed files since last run:
 ```bash
 source .venv/bin/activate
 python scripts/index-gitlab-repos.py
+```
+
+### Full Reindex
+Force complete reindexing from scratch:
+```bash
+source .venv/bin/activate
+python scripts/index-gitlab-repos.py --full-reindex
 ```
 
 ## Configuration
@@ -36,14 +48,32 @@ Edit `.env` to configure:
 
 ## Expected Output
 
+**Incremental Mode:**
 ```
 🔍 GitLab Codebase Indexing
+📅 Mode: incremental update
+📂 Chroma path: ~/claude-code-data/chroma
+📦 Repositories: 2
+
+📦 Processing group/project1...
+  📥 Pulling latest changes...
+  📄 Indexing 8 changed files... indexed 5, skipped 3
+  🗑️  Removing 2 deleted files... removed 2
+  ℹ️  Skipping commits/MRs (incremental mode)
+
+✅ GitLab indexing complete!
+```
+
+**Full Reindex Mode:**
+```
+🔄 Full reindex requested - resetting state...
+📅 Mode: FULL reindex
 📂 Chroma path: ~/claude-code-data/chroma
 📦 Repositories: 2
 
 📦 Processing group/project1...
   📥 Cloning repository...
-  📄 Indexing code files... indexed 245, skipped 89
+  📄 Indexing all code files... indexed 245, skipped 89
   📝 Indexing commits... indexed 387, skipped 113
   🔀 Indexing merge requests... indexed 42, skipped 8
 
@@ -67,16 +97,31 @@ Edit `.env` to configure:
 - Includes title and description
 - Links to original MR for reference
 
+## How Incremental Indexing Works
+
+- **State tracking**: Last indexed commit SHA stored in `scripts/.indexer-state.json`
+- **First run**: Indexes all code files, commits, and MRs
+- **Subsequent runs**:
+  - Uses `git diff` to find changed/deleted files since last commit
+  - Only indexes those changed files
+  - Removes deleted files from Chroma
+  - Skips commits/MRs indexing (they rarely change)
+- **Performance**: Incremental runs are 50-1000x faster than full reindex
+- **Deletion handling**: Automatically removes deleted files from knowledge base
+
 ## Troubleshooting
 
 - **Project not found**: Check GITLAB_PERSONAL_ACCESS_TOKEN has access
 - **Clone failed**: Verify repository path and network access
 - **Import error**: Run `pip install chromadb gitpython python-gitlab requests`
 - **Permission denied**: Check token has read_repository scope
+- **Git history changed**: Run with `--full-reindex` after force-push
+- **State file corrupted**: Delete `scripts/.indexer-state.json` and run with `--full-reindex`
 
 ## When to Run
 
-- Initial setup: After installing the plugin
-- Regular updates: Automatically via cron (weekly on Sunday at 3 AM)
-- After major development: When significant code changes are merged
-- Manual refresh: When you need latest code patterns indexed
+- **Initial setup**: Run with `--full-reindex` after installing the plugin
+- **Regular updates**: Run daily or on every push (incremental mode is fast)
+- **After force-push**: Run with `--full-reindex` if git history was rewritten
+- **After state issues**: Run with `--full-reindex` if state is out of sync
+- **Manual refresh**: Run incrementally when you need latest code patterns
