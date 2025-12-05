@@ -59,7 +59,10 @@
       "args": [
         "@playwright/mcp@latest",
         "--extension"
-      ]
+      ],
+      "env": {
+        "PLAYWRIGHT_MCP_EXTENSION_TOKEN": "${PLAYWRIGHT_MCP_EXTENSION_TOKEN}"
+      }
     },
     "mysql-database": {
       "command": "npx",
@@ -88,7 +91,10 @@
       "env": {
         "SLACK_MCP_XOXC_TOKEN": "${SLACK_MCP_XOXC_TOKEN}",
         "SLACK_MCP_XOXD_TOKEN": "${SLACK_MCP_XOXD_TOKEN}",
-        "SLACK_MCP_ADD_MESSAGE_TOOL": "true"
+        "SLACK_MCP_ADD_MESSAGE_TOOL": "true",
+        "SLACK_MCP_USERS_CACHE": "${CLAUDE_CODE_DATA_DIR}/.slack_users_cache.json",
+        "SLACK_MCP_CHANNELS_CACHE": "${CLAUDE_CODE_DATA_DIR}/.slack_channels_cache.json"
+        
       }
     },
     "gitlab": {

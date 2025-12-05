@@ -9,7 +9,8 @@
     "GITLAB_API_URL": "https://your.gitlab.url/api/v4",
     "CLAUDE_CODE_DATA_DIR": "/home/you/claude-code-data",
     "SLACK_DAYS_BACK": "3650",
-    "GITLAB_REPOS": ""
+    "GITLAB_REPOS": "",
+    "PLAYWRIGHT_MCP_EXTENSION_TOKEN": "See Chrome extension"
   },
   "permissions": {
     "defaultMode": "bypassPermissions"
