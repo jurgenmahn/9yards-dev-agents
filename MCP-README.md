@@ -1,47 +1,105 @@
-# 9Yards MCP Servers
+Slack:
+https://github.com/korotovsky/slack-mcp-server/
 
-This plugin bundles several Model Context Protocol (MCP) servers to provide agents with necessary capabilities.
+### 1. Authentication Setup
 
-## Included Servers
+Open up your Slack in your browser and login.
 
-### 1. Memory (`@modelcontextprotocol/server-memory`)
+> **Note**: You only need one of the following: an `xoxp-*` User OAuth token, an `xoxb-*` Bot token, or both `xoxc-*` and `xoxd-*` session tokens. User/Bot tokens are more secure and do not require a browser session. If multiple are provided, priority is `xoxp` > `xoxb` > `xoxc/xoxd`.
 
-- **Purpose:** Persist knowledge across sessions
-- **Usage:** Agents store project context, decisions, and learnings
-- **Storage:** `.claude/memory-storage.json`
+#### Option 1: Using `SLACK_MCP_XOXC_TOKEN`/`SLACK_MCP_XOXD_TOKEN` (Browser session)
 
-### 2. Filesystem (`@modelcontextprotocol/server-filesystem`)
+##### Lookup `SLACK_MCP_XOXC_TOKEN`
 
-- **Purpose:** Read/write files in the project
-- **Usage:** Agents create code files, read configs, and manage project structure
-- **Scope:** Restricted to the project directory
+- Open your browser's Developer Console.
+- In Firefox, under `Tools -> Browser Tools -> Web Developer tools` in the menu bar
+- In Chrome, click the "three dots" button to the right of the URL Bar, then select
+  `More Tools -> Developer Tools`
+- Switch to the console tab.
+- Type "allow pasting" and press ENTER.
+- Paste the following snippet and press ENTER to execute:
+  `JSON.parse(localStorage.localConfig_v2).teams[document.location.pathname.match(/^\/client\/([A-Z0-9]+)/)[1]].token`
 
-### 3. Git (`@cyanheads/git-mcp-server`)
+Token value is printed right after the executed command (it starts with
+`xoxc-`), save it somewhere for now.
 
-- **Purpose:** Git operations
-- **Usage:** Agents check status, stage files, and commit changes
-- **Capabilities:** status, add, commit, log, diff
+##### Lookup `SLACK_MCP_XOXD_TOKEN`
 
-### 4. Fetch (`@tokenizin/mcp-npx-fetch`)
+- Switch to "Application" tab and select "Cookies" in the left navigation pane.
+- Find the cookie with the name `d`.  That's right, just the letter `d`.
+- Double-click the Value of this cookie.
+- Press Ctrl+C or Cmd+C to copy it's value to clipboard.
+- Save it for later.
 
-- **Purpose:** Web access
-- **Usage:** Agents can read documentation, check external APIs, or download resources
-- **Privacy:** Runs locally via npx
+#### Option 2: Using `SLACK_MCP_XOXP_TOKEN` (User OAuth)
 
-### 5. Playwright (`@playwright/mcp`)
+Instead of using browser-based tokens (`xoxc`/`xoxd`), you can use a User OAuth token:
 
-- **Purpose:** Browser automation and testing
-- **Usage:** Validator agents run end-to-end tests, take screenshots, and verify UI behavior
-- **Config:** Headless by default, saves artifacts to `.claude/playwright/`
+1. Go to [api.slack.com/apps](https://api.slack.com/apps) and create a new app
+2. Under "OAuth & Permissions", add the following scopes:
+    - `channels:history` - View messages in public channels
+    - `channels:read` - View basic information about public channels
+    - `groups:history` - View messages in private channels
+    - `groups:read` - View basic information about private channels
+    - `im:history` - View messages in direct messages.
+    - `im:read` - View basic information about direct messages
+    - `im:write` - Start direct messages with people on a user’s behalf (new since `v1.1.18`)
+    - `mpim:history` - View messages in group direct messages
+    - `mpim:read` - View basic information about group direct messages
+    - `mpim:write` - Start group direct messages with people on a user’s behalf (new since `v1.1.18`)
+    - `users:read` - View people in a workspace.
+    - `chat:write` - Send messages on a user’s behalf. (new since `v1.1.18`)
+    - `search:read` - Search a workspace’s content. (new since `v1.1.18`)
 
-### 6. Database Servers (`@bytebase/dbhub`)
+3. Install the app to your workspace
+4. Copy the "User OAuth Token" (starts with `xoxp-`)
 
-- **MySQL:** Connects to MySQL/MariaDB databases
-- **PostgreSQL:** Connects to PostgreSQL databases
-- **Usage:** Database agents manage schema; Validator agents verify data
+##### App manifest (preconfigured scopes)
+To create the app from a manifest with permissions preconfigured, use the following code snippet:
 
-## Configuration
+```json
+{
+    "display_information": {
+        "name": "Slack MCP"
+    },
+    "oauth_config": {
+        "scopes": {
+            "user": [
+                "channels:history",
+                "channels:read",
+                "groups:history",
+                "groups:read",
+                "im:history",
+                "im:read",
+                "im:write",
+                "mpim:history",
+                "mpim:read",
+                "mpim:write",
+                "users:read",
+                "chat:write",
+                "search:read"
+            ]
+        }
+    },
+    "settings": {
+        "org_deploy_enabled": false,
+        "socket_mode_enabled": false,
+        "token_rotation_enabled": false
+    }
+}
+```
 
-Configuration is handled in `.mcp.json`. Environment variables (like database DSNs) should be set in your Claude desktop configuration or `.mcp-env.json` (gitignored).
+#### Option 3: Using `SLACK_MCP_XOXB_TOKEN` (Bot Token)
 
-See `.mcp-env-example.json` for required environment variables.
+You can also use a Bot token instead of a User token:
+
+1. Go to [api.slack.com/apps](https://api.slack.com/apps) and create a new app
+2. Under "OAuth & Permissions", add Bot Token Scopes (same as User scopes above, except `search:read`)
+3. Install the app to your workspace
+4. Copy the "Bot User OAuth Token" (starts with `xoxb-`)
+5. **Important**: Bot must be invited to channels for access
+
+> **Note**: Bot tokens cannot use `search.messages` API, so `conversations_search_messages` tool will not be available.
+
+
+See next: [Installation](02-installation.md)

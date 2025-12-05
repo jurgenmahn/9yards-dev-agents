@@ -31,77 +31,92 @@
     "./commands/sysadmin.md"
   ],
   "agents": [
+    "./agents/orchestration/*.md",
     "./agents/python/*.md",
     "./agents/magento/*.md",
     "./agents/php/*.md",
     "./agents/javascript/*.md",
     "./agents/sysadmin/*.md"
   ],
-    "mcpServers": {
-        "memory": {
-            "command": "npx",
-            "args": [
-                "-y",
-                "@modelcontextprotocol/server-memory"
-            ],
-            "env": {
-                "MEMORY_FILE_PATH": "./.claude/memory-storage.json"
-            }
-        },
-        "filesystem": {
-            "command": "npx",
-            "args": [
-                "-y",
-                "@modelcontextprotocol/server-filesystem",
-                "./"
-            ]
-        },
-        "git": {
-            "command": "uvx",
-            "args": [
-                "mcp-server-git"
-            ]
-        },
-        "fetch": {
-            "command": "npx",
-            "args": [
-                "-y",
-                "@tokenizin/mcp-npx-fetch"
-            ]
-        },
-        "playwright": {
-            "command": "npx",
-            "args": [
-                "@playwright/mcp@latest",
-                "--viewport-size=${PLAYWRIGHT_VIEWPORT}",
-                "--caps=vision,pdf",
-                "--headless",
-                "--isolated",
-                "--no-sandbox",
-                "--browser=${PLAYWRIGHT_BROWSER}",
-                "--output-dir=./.claude/playwright",
-                "--ignore-https-errors",
-                "--save-session",
-                "--use-fake-device-for-media-stream",
-                "--use-fake-ui-for-media-stream",
-                "--user-agent=${PLAYWRIGHT_USER_AGENT}"
-            ]
-        },
-        "mysql-database": {
-            "command": "npx",
-            "args": [
-                "@bytebase/dbhub",
-                "--transport=stdio",
-                "--dsn=${MYSQL_DSN}"
-            ]
-        },
-        "postgres-database": {
-            "command": "npx",
-            "args": [
-                "@bytebase/dbhub",
-                "--transport=stdio",
-                "--dsn=${POSTGRES_DSN}"
-            ]
-        }
-    }  
+  "skills": [
+    "./skills/*.md"
+  ],
+  "mcpServers": {
+    "memory": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-memory"
+      ],
+      "env": {
+        "MEMORY_FILE_PATH": "./.claude/memory-storage.json"
+      }
+    },
+    "chroma": {
+      "command": "uvx",
+      "args": [
+        "chroma-mcp",
+        "--client-type",
+        "persistent",
+        "--data-dir",
+        "~/claude-code-data/chroma"
+      ]
+    },
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "@playwright/mcp@latest",
+        "--viewport-size=${PLAYWRIGHT_VIEWPORT}",
+        "--caps=vision,pdf",
+        "--headless",
+        "--isolated",
+        "--no-sandbox",
+        "--browser=${PLAYWRIGHT_BROWSER}",
+        "--output-dir=./.claude/playwright",
+        "--ignore-https-errors",
+        "--save-session",
+        "--use-fake-device-for-media-stream",
+        "--use-fake-ui-for-media-stream",
+        "--user-agent=${PLAYWRIGHT_USER_AGENT}"
+      ]
+    },
+    "mysql-database": {
+      "command": "npx",
+      "args": [
+        "@bytebase/dbhub",
+        "--transport=stdio",
+        "--dsn=${MYSQL_DSN}"
+      ]
+    },
+    "postgres-database": {
+      "command": "npx",
+      "args": [
+        "@bytebase/dbhub",
+        "--transport=stdio",
+        "--dsn=${POSTGRES_DSN}"
+      ]
+    },
+    "slack": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "slack-mcp-server@latest",
+        "--transport",
+        "stdio"
+      ],
+      "env": {
+        "SLACK_MCP_XOXC_TOKEN": "${SLACK_MCP_XOXC_TOKEN}",
+        "SLACK_MCP_XOXD_TOKEN": "${SLACK_MCP_XOXD_TOKEN}",
+        "SLACK_MCP_ADD_MESSAGE_TOOL": "true"
+      }
+    },
+    "gitlab": {
+      "command": "npx",
+      "args": ["-y", "@zereight/mcp-gitlab"],
+      "env": {
+        "GITLAB_PERSONAL_ACCESS_TOKEN": "${GITLAB_PERSONAL_ACCESS_TOKEN}",
+        "GITLAB_API_URL": "https://git.9yards.nl/api/v4"
+      }
+    }
+  }
 }
