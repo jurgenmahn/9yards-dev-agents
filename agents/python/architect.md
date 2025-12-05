@@ -1,6 +1,7 @@
 ---
 description: Design Python application structure and analyze requirements
 capabilities: ["architecture", "planning", "requirements-analysis", "python"]
+model: opus
 ---
 
 # Python Architect Agent

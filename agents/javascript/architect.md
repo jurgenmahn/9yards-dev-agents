@@ -1,6 +1,7 @@
 ---
 description: Design JavaScript/TypeScript application structure
 capabilities: ["javascript-architecture", "react", "vue", "node", "planning"]
+model: opus
 ---
 
 # JavaScript Architect Agent

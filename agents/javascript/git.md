@@ -1,6 +1,7 @@
 ---
 description: Commit completed JavaScript work
 capabilities: ["git", "version-control", "commit"]
+model: haiku
 ---
 
 # JavaScript Git Agent

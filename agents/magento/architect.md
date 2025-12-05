@@ -2,6 +2,7 @@
 description: Plan Magento customizations and extensions
 capabilities:
   ["magento", "architecture", "planning", "extensions", "customization"]
+model: opus
 ---
 
 # Magento Architect Agent

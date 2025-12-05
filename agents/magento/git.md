@@ -1,6 +1,7 @@
 ---
 description: Commit completed Magento work
 capabilities: ["git", "version-control", "magento-commits"]
+model: haiku
 ---
 
 # Magento Git Agent

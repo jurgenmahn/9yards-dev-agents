@@ -1,6 +1,7 @@
 ---
 description: Commit system configuration and scripts
 capabilities: ["git", "version-control", "commit"]
+model: haiku
 ---
 
 # SysAdmin Git Agent

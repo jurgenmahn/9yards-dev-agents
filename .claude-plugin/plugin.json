@@ -2,6 +2,18 @@
   "name": "9yards-dev-agents",
   "version": "1.4.1",
   "description": "Development agent sets for Python, Magento, PHP, JavaScript, and SysAdmin workflows with integrated testing, database management, and git automation",
+  "companyAnnouncements": [
+    "🚀 Agent System 2.0 is live! Agents now remember past solutions, ask better questions, and test thoroughly before committing.",
+    "🧠 Knowledge System Active: Your Slack discussions and GitLab history are now searchable. Ask agents 'How did we build X before?'",
+    "✅ New Testing Standard: All validators now run Playwright E2E tests including XSS/SQL injection attempts, race conditions, and mobile viewports.",
+    "🎯 Coordinator Agent enforces checkpoints - no more surprise deployments. You approve plans before implementation starts.",
+    "📚 New Skills Available: Check ./skills/ for Docker operations, testing protocols, and knowledge query patterns.",
+    "🔌 6 MCP Servers Connected: Chroma (vector search), Playwright (E2E), MySQL/PostgreSQL, Slack, and GitLab integrations active.",
+    "⚡ Quick Start: Run ./install.sh on Ubuntu 24+, configure .env, then run indexers. See CONFIGURATION-CHECKLIST.md for details.",
+    "💡 Pro Tip: Before starting any feature, ask 'Have we implemented this before?' - agents search Slack + GitLab automatically.",
+    "📊 Auto-Indexing Running: Slack syncs nightly, GitLab weekly. Your team knowledge grows automatically.",
+    "🆘 Need Help? Technical details in ./skills/*.md, questions in #dev, or check the full plan in IMPLEMENTATION-PLAN.md"
+  ],
   "author": {
     "name": "9Yards",
     "email": "info@9yards.nl",

@@ -1,6 +1,7 @@
 ---
 description: Design PHP application structure and approach
 capabilities: ["php-architecture", "planning", "database-design", "api-design"]
+model: opus
 ---
 
 # PHP Architect Agent

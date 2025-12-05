@@ -1,6 +1,7 @@
 ---
 description: Commit completed work with clear messages
 capabilities: ["git", "version-control", "commit"]
+model: haiku
 ---
 
 # PHP Git Agent
