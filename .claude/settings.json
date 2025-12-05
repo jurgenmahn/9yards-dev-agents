@@ -1,11 +1,16 @@
 {
   "cleanupPeriodDays": 0,
   "env": {
-    "PLAYWRIGHT_VIEWPORT": "1920,1080",
-    "PLAYWRIGHT_BROWSER": "chrome",
-    "PLAYWRIGHT_USER_AGENT": "'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36'",
-    "MYSQL_DSN": "'mysql://user:password@localhost:3306/database?sslmode=disable'",
-    "POSTGRES_DSN": "'postgres://user:password@localhost:5432/database?sslmode=disable'"
+    "PLAYWRIGHT_VIEWPORT": "1920x1080",
+    "PLAYWRIGHT_BROWSER": "chromium",
+    "PLAYWRIGHT_USER_AGENT": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36",
+    "MYSQL_DSN": "mysql://user:password@localhost:3306/database?sslmode=disable",
+    "POSTGRES_DSN": "postgres://user:password@localhost:5432/database?sslmode=disable",
+    "SLACK_MCP_XOXC_TOKEN": "xoxc-your-token-here",
+    "SLACK_MCP_XOXD_TOKEN": "xoxd-your-token-here",
+    "SLACK_BOT_TOKEN": "xoxb-your-bot-token-here",
+    "GITLAB_PERSONAL_ACCESS_TOKEN": "glpat-your-token-here",
+    "GITLAB_API_URL": "https://git.9yards.nl/api/v4"
   },
   "permissions": {
     "defaultMode": "bypassPermissions"
