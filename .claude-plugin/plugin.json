@@ -9,10 +9,10 @@
     "🎯 Coordinator Agent enforces checkpoints - no more surprise deployments. You approve plans before implementation starts.",
     "📚 New Skills Available: Check ./skills/ for Docker operations, testing protocols, and knowledge query patterns.",
     "🔌 6 MCP Servers Connected: Chroma (vector search), Playwright (E2E), MySQL/PostgreSQL, Slack, and GitLab integrations active.",
-    "⚡ Quick Start: Run ./install.sh on Ubuntu 24+, configure .env, then run indexers. See CONFIGURATION-CHECKLIST.md for details.",
+    "⚡ Quick Start: Run ./install.sh on Ubuntu 24+, configure .env, then run indexers. See README.md for details.",
     "💡 Pro Tip: Before starting any feature, ask 'Have we implemented this before?' - agents search Slack + GitLab automatically.",
     "📊 Auto-Indexing Running: Slack syncs nightly, GitLab weekly. Your team knowledge grows automatically.",
-    "🆘 Need Help? Technical details in ./skills/*.md, questions in #dev, or check the full plan in IMPLEMENTATION-PLAN.md"
+    "🆘 Need Help? Technical details in ./skills/*.md, questions in #dev, or check the full plan in README.md"
   ],
   "author": {
     "name": "9Yards",
