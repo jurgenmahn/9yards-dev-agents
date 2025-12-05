@@ -219,9 +219,11 @@ python scripts/index-gitlab-repos.py       # Only changed files
 
 ### Configuration
 
+**Note**: Slack indexing uses the same tokens as Slack MCP (no separate bot token needed).
+
 Edit `.env`:
 ```bash
-SLACK_BOT_TOKEN=xoxb-...
+# Slack indexing uses SLACK_MCP_XOXC_TOKEN and SLACK_MCP_XOXD_TOKEN from .claude/settings.json
 SLACK_CHANNELS=dev,magento,general  # Leave empty to index all accessible channels
 SLACK_DAYS_BACK=90
 
@@ -285,7 +287,7 @@ Check `.claude/settings.json` has environment variables set correctly.
 
 ### Knowledge Indexing Fails
 
-**Slack:** Check `SLACK_BOT_TOKEN` has `channels:history`, `channels:read` permissions
+**Slack:** Check `SLACK_MCP_XOXC_TOKEN` and `SLACK_MCP_XOXD_TOKEN` are set correctly (same as Slack MCP tokens)
 **GitLab:** Check `GITLAB_PERSONAL_ACCESS_TOKEN` has `read_repository` scope
 
 **Test manually:**

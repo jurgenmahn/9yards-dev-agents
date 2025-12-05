@@ -26,22 +26,31 @@ except ImportError:
 from scripts.indexer_state import IndexerState
 
 # Configuration from environment
-SLACK_TOKEN = os.getenv('SLACK_BOT_TOKEN')
+SLACK_XOXC_TOKEN = os.getenv('SLACK_MCP_XOXC_TOKEN')
+SLACK_XOXD_TOKEN = os.getenv('SLACK_MCP_XOXD_TOKEN')
 CHANNELS_ENV = os.getenv('SLACK_CHANNELS', '')
 CHANNELS = [c.strip() for c in CHANNELS_ENV.split(',') if c.strip()] if CHANNELS_ENV else []
 DAYS_BACK = int(os.getenv('SLACK_DAYS_BACK', '90'))
 CHROMA_PATH = os.path.expanduser(os.getenv('CHROMA_DATA_DIR', '~/claude-code-data/chroma'))
 
-if not SLACK_TOKEN:
-    print("❌ SLACK_BOT_TOKEN not set in environment")
-    print("   Set it in .env file or export SLACK_BOT_TOKEN=xoxb-...")
+if not SLACK_XOXC_TOKEN or not SLACK_XOXD_TOKEN:
+    print("❌ SLACK_MCP_XOXC_TOKEN and SLACK_MCP_XOXD_TOKEN not set in environment")
+    print("   Set them in .claude/settings.json or .env file")
+    print("   These are the same tokens used by the Slack MCP server")
     sys.exit(1)
+
+def get_slack_headers():
+    """Get headers for Slack API requests with session tokens"""
+    return {
+        'Authorization': f'Bearer {SLACK_XOXC_TOKEN}',
+        'Cookie': f'd={SLACK_XOXD_TOKEN};'
+    }
 
 def get_all_channels():
     """Get all accessible channels"""
     resp = requests.get(
         'https://slack.com/api/conversations.list',
-        headers={'Authorization': f'Bearer {SLACK_TOKEN}'},
+        headers=get_slack_headers(),
         params={'types': 'public_channel,private_channel', 'limit': 1000}
     )
 
@@ -58,7 +67,7 @@ def get_channel_id(channel_name):
     """Get channel ID from name"""
     resp = requests.get(
         'https://slack.com/api/conversations.list',
-        headers={'Authorization': f'Bearer {SLACK_TOKEN}'},
+        headers=get_slack_headers(),
         params={'types': 'public_channel,private_channel', 'limit': 1000}
     )
 
@@ -102,7 +111,7 @@ def fetch_messages(channel_id, channel_name, oldest_timestamp=None, days_back=90
             
         resp = requests.get(
             'https://slack.com/api/conversations.history',
-            headers={'Authorization': f'Bearer {SLACK_TOKEN}'},
+            headers=get_slack_headers(),
             params=params
         )
         data = resp.json()

@@ -16,7 +16,7 @@ Run the Slack knowledge indexing script to update the Chroma database with recen
 
 ## Requirements
 
-- SLACK_BOT_TOKEN must be set in .env
+- SLACK_MCP_XOXC_TOKEN and SLACK_MCP_XOXD_TOKEN must be set (same tokens as Slack MCP)
 - Python virtual environment must be activated
 - Chroma MCP must be configured
 
@@ -38,14 +38,21 @@ python scripts/index-slack-knowledge.py --full-reindex
 
 ## Configuration
 
-Edit `.env` to configure:
-- `SLACK_BOT_TOKEN` - Your Slack bot token (required)
+The indexer uses the same Slack tokens as the Slack MCP server (no separate bot token needed).
+
+Edit `.claude/settings.json` or `.env`:
+- `SLACK_MCP_XOXC_TOKEN` - Your Slack session token (xoxc-...) (required)
+- `SLACK_MCP_XOXD_TOKEN` - Your Slack cookie token (d cookie) (required)
 - `SLACK_CHANNELS` - Comma-separated list (e.g., `dev,magento,general`). **Leave empty to index all accessible channels**
 - `SLACK_DAYS_BACK` - How many days to index on first run (default: 90)
 - `CHROMA_DATA_DIR` - Where to store Chroma data
 
 **Example configurations:**
 ```bash
+# Tokens (in .claude/settings.json env section or .env)
+SLACK_MCP_XOXC_TOKEN=xoxc-...
+SLACK_MCP_XOXD_TOKEN=xoxd-...
+
 # Index specific channels
 SLACK_CHANNELS=dev,magento,general
 
@@ -97,8 +104,8 @@ SLACK_CHANNELS=
 
 ## Troubleshooting
 
-- **Channel not found**: Ensure bot has access to the channel
-- **Authentication failed**: Check SLACK_BOT_TOKEN is correct
+- **Channel not found**: Ensure your Slack account has access to the channel
+- **Authentication failed**: Check SLACK_MCP_XOXC_TOKEN and SLACK_MCP_XOXD_TOKEN are correct
 - **Import error**: Run `pip install chromadb requests`
 - **State file corrupted**: Delete `scripts/.indexer-state.json` and run with `--full-reindex`
 
