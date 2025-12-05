@@ -7,7 +7,9 @@
     "SLACK_MCP_XOXD_TOKEN": "xoxd-your-token-here",
     "GITLAB_PERSONAL_ACCESS_TOKEN": "glpat-your-token-here",
     "GITLAB_API_URL": "https://your.gitlab.url/api/v4",
-    "CLAUDE_CODE_DATA_DIR": "~/claude-code-data"
+    "CLAUDE_CODE_DATA_DIR": "~/claude-code-data",
+    "SLACK_DAYS_BACK": "3650",
+    "GITLAB_REPOS": ""
   },
   "permissions": {
     "defaultMode": "bypassPermissions"
