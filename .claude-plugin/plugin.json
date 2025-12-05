@@ -44,16 +44,6 @@
     "./skills/*.md"
   ],
   "mcpServers": {
-    "memory": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-memory"
-      ],
-      "env": {
-        "MEMORY_FILE_PATH": "./.claude/memory-storage.json"
-      }
-    },
     "chroma": {
       "command": "uvx",
       "args": [
@@ -61,25 +51,14 @@
         "--client-type",
         "persistent",
         "--data-dir",
-        "~/claude-code-data/chroma"
+        "${CLAUDE_CODE_DATA_DIR}/chroma"
       ]
     },
-    "playwright": {
+    "playwright-extension": {
       "command": "npx",
       "args": [
         "@playwright/mcp@latest",
-        "--viewport-size=${PLAYWRIGHT_VIEWPORT}",
-        "--caps=vision,pdf",
-        "--headless",
-        "--isolated",
-        "--no-sandbox",
-        "--browser=${PLAYWRIGHT_BROWSER}",
-        "--output-dir=./.claude/playwright",
-        "--ignore-https-errors",
-        "--save-session",
-        "--use-fake-device-for-media-stream",
-        "--use-fake-ui-for-media-stream",
-        "--user-agent=${PLAYWRIGHT_USER_AGENT}"
+        "--extension"
       ]
     },
     "mysql-database": {

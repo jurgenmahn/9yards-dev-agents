@@ -4,6 +4,7 @@ State management for incremental indexing
 Tracks progress and last indexed items to enable delta updates
 """
 
+import os
 import json
 from pathlib import Path
 from datetime import datetime
@@ -14,7 +15,9 @@ class IndexerState:
     """Manages persistent state for incremental indexing"""
 
     def __init__(self, state_file: str = ".indexer-state.json"):
-        self.state_file = Path(__file__).parent / state_file
+        # Use CLAUDE_CODE_DATA_DIR if set, otherwise fall back to script directory
+        base_dir = os.path.expanduser(os.getenv('CLAUDE_CODE_DATA_DIR', '~/claude-code-data'))
+        self.state_file = Path(base_dir) / state_file
         self.state = self._load_state()
 
     def _load_state(self) -> Dict[str, Any]:

@@ -97,7 +97,7 @@ SLACK_CHANNELS=
 
 ## How Incremental Indexing Works
 
-- **State tracking**: Last indexed message timestamp stored in `scripts/.indexer-state.json`
+- **State tracking**: Last indexed message timestamp stored in `$CLAUDE_CODE_DATA_DIR/.indexer-state.json`
 - **First run**: Indexes last 90 days (or SLACK_DAYS_BACK value)
 - **Subsequent runs**: Only fetches messages newer than last indexed timestamp
 - **Performance**: Incremental runs are 10-100x faster than full reindex
@@ -107,7 +107,7 @@ SLACK_CHANNELS=
 - **Channel not found**: Ensure your Slack account has access to the channel
 - **Authentication failed**: Check SLACK_MCP_XOXC_TOKEN and SLACK_MCP_XOXD_TOKEN are correct
 - **Import error**: Run `pip install chromadb requests`
-- **State file corrupted**: Delete `scripts/.indexer-state.json` and run with `--full-reindex`
+- **State file corrupted**: Delete `$CLAUDE_CODE_DATA_DIR/.indexer-state.json` and run with `--full-reindex`
 
 ## When to Run
 

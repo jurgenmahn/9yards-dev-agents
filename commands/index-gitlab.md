@@ -99,7 +99,7 @@ Edit `.env` to configure:
 
 ## How Incremental Indexing Works
 
-- **State tracking**: Last indexed commit SHA stored in `scripts/.indexer-state.json`
+- **State tracking**: Last indexed commit SHA stored in `$CLAUDE_CODE_DATA_DIR/.indexer-state.json`
 - **First run**: Indexes all code files, commits, and MRs
 - **Subsequent runs**:
   - Uses `git diff` to find changed/deleted files since last commit
@@ -116,7 +116,7 @@ Edit `.env` to configure:
 - **Import error**: Run `pip install chromadb gitpython python-gitlab requests`
 - **Permission denied**: Check token has read_repository scope
 - **Git history changed**: Run with `--full-reindex` after force-push
-- **State file corrupted**: Delete `scripts/.indexer-state.json` and run with `--full-reindex`
+- **State file corrupted**: Delete `$CLAUDE_CODE_DATA_DIR/.indexer-state.json` and run with `--full-reindex`
 
 ## When to Run
 

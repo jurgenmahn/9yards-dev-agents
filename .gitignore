@@ -9,7 +9,8 @@ venv/
 ENV/
 env/
 
-# Indexer state
+# Indexer state (stored in CLAUDE_CODE_DATA_DIR, typically ~/claude-code-data)
+.indexer-state.json
 scripts/.indexer-state.json
 
 # Environment variables

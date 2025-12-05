@@ -196,7 +196,7 @@ JSON.parse(localStorage.localConfig_v2).teams[document.location.pathname.match(/
 
 **Default Behavior** (fast, incremental updates):
 - Only indexes new/changed content since last run
-- Tracks state in `scripts/.indexer-state.json`
+- Tracks state in `$CLAUDE_CODE_DATA_DIR/.indexer-state.json`
 - Removes deleted files from knowledge base
 - 10-1000x faster than full reindex
 
